@@ -1,0 +1,26 @@
+{
+    "development": {
+    "username": "User",
+        "password": "kmk123",
+        "database": "cathedral",
+        "host": "localhost",
+        "dialect": "postgres",
+        "operatorsAliases": "Op"
+},
+    "test": {
+    "username": "User",
+        "password": "kmk123",
+        "database": "cathedral",
+        "host": "localhost",
+        "dialect": "postgres",
+        "operatorsAliases": "Op"
+},
+    "production": {
+    "username": "User",
+        "password": "kmk123",
+        "database": "cathedral",
+        "host": "localhost",
+        "dialect": "postgres",
+        "operatorsAliases": "Op"
+}
+}

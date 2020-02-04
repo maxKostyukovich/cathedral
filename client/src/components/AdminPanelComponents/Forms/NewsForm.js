@@ -12,16 +12,25 @@ import FileInput from '../Inputs/FileInput/FileInput'
 import DatePicker from '../Inputs/DatePicker/DatePicker'
 import {createNews} from '../../../api/restApi'
 class NewsForm extends React.Component{
+    onFormSubmit =  (data) => {
+        const {main_img, ...rest} = data;
+        const formData = new FormData();
+        if(main_img){
+            formData.append('main_img', main_img);
+        }
+        formData.append('news', JSON.stringify(rest));
+        createNews(formData);
+    };
     render(){
-        const onFormSubmit =  (data) => {
-            const {main_img, ...rest} = data;
-            const formData = new FormData();
-            if(main_img){
-                formData.append('main_img', main_img);
-            }
-            formData.append('news', JSON.stringify(rest));
-             createNews(formData);
-        };
+        // const onFormSubmit =  (data) => {
+        //     const {main_img, ...rest} = data;
+        //     const formData = new FormData();
+        //     if(main_img){
+        //         formData.append('main_img', main_img);
+        //     }
+        //     formData.append('news', JSON.stringify(rest));
+        //      createNews(formData);
+        // };
         return(
             <form>
                 <div className={styles.container}>
@@ -30,7 +39,7 @@ class NewsForm extends React.Component{
                     <Field name={'content'} component={TextAreaInput} type={'text'} label={'Основной текст статьи'}/>
                     <Field name={'date'} component={DatePicker} type={'text'} showTime={false} label={'Дата публикации'}/>
                     <Field name={'main_img'} component={FileInput} label={'Заглавное фото статьи'} accept='.jpg' />
-                    <SubmitButton text={"Создать новость"} handler = {this.props.handleSubmit(onFormSubmit)} />
+                    <SubmitButton text={"Создать новость"} handler = {this.props.handleSubmit(this.onFormSubmit)} />
                 </div>
             </form>
         )

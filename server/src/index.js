@@ -6,6 +6,7 @@ import { PORT } from "./constants";
 import errorHandler from './errorHandlers/errorHandler'
 const app  = express();
 
+app.use('/static',express.static(process.cwd() + '/public/images'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/api', router);

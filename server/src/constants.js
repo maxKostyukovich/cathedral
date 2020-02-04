@@ -9,3 +9,5 @@ export const JWT = {
 };
 
 export const MULTER_TIME_FORMAT = 'x';
+
+export const STATIC_PATH_MAIN_PHOTO_NEWS = '/static/mainPhotoNews/';

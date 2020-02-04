@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "izhitsacyrillic";
+  src: url("izhitsa-cyrillic.ttf")
+}
+
 .App {
   text-align: center;
 }

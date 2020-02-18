@@ -6,6 +6,10 @@ export const JWT = {
         type: 'access',
         expiresIn: '60m',
     },
+    refresh: {
+        type: 'refresh',
+        expiresIn: '30d',
+    },
 };
 
 export const MULTER_TIME_FORMAT = 'x';

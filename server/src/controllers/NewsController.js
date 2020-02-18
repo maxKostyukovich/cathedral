@@ -40,6 +40,7 @@ module.exports.getAllNews = async (req, res, next) => {
 
 module.exports.getNews = async (req, res, next) => {
     const news = await News.findByPk(req.params.id);
+    news.main_img = STATIC_PATH_MAIN_PHOTO_NEWS + news.main_img
     if(!news){
         return next(new NotFoundError("News not found"));
     }
@@ -48,11 +49,10 @@ module.exports.getNews = async (req, res, next) => {
 
 module.exports.deleteNews = async (req, res, next) => {
     try {
-        const news = await News.findByPk(req.params.id);
-        if (!news) {
+        const countOfModifiedFields = await News.destroy({where: {id: req.params.id}});
+        if(countOfModifiedFields < 1){
             return next(new NotFoundError("News not found"));
         }
-        const countOfModifiedFields = await News.destroy({where: {id: news.id}});
         res.send({modified: countOfModifiedFields});
     } catch(e){
         return next(e);

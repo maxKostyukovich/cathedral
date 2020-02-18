@@ -1,5 +1,8 @@
+@import "../../../mixins"
 .container
-  display: flex
-  width: 80%
-  flex-direction: column
+  @include page-container
+  @include flex-container(column)
+  img
+    width: 960px
+    height: 320px
 

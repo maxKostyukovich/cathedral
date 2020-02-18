@@ -1,6 +1,8 @@
 import db from '../models'
 import bcrypt from 'bcryptjs'
-import { generateAccessToken } from '../utils/generateToken'
+import jwt from 'jsonwebtoken'
+import { JWT } from "../constants";
+import { generateTokenPair } from '../utils/generateToken'
 import UnauthorizedError from '../errorHandlers/UnauthorizedError'
 const User = db.User;
 module.exports.createUser = async (req, res, next) => {
@@ -18,10 +20,10 @@ module.exports.loginUser = async (req, res, next) => {
 
         const access = await bcrypt.compare(password, user.password);
         if(access){
-            const accessToken = generateAccessToken(user._id, user.role);
+            const tokenPair = generateTokenPair(user.id, user.role);
             res.send({
                 user: { login: user.login },
-                accessToken
+                tokenPair
             });
         } else{
             next(new UnauthorizedError("Invalid credentials"))
@@ -29,4 +31,21 @@ module.exports.loginUser = async (req, res, next) => {
     } catch(e){
         next(e);
     }
+module.exports.refreshToken = async (req, res, next) => {
+    const refreshToken = req.body.refreshToken
+    try {
+        const payload = jwt.verify(refreshToken, JWT.secret)
+        if(payload.type !== JWT.refresh.type){
+           throw new Error('Invalid token type')
+        }
+        const user = await User.findByPk(payload.id);
+        const tokenPair = generateTokenPair(user.id, user.role)
+        res.send({ tokenPair })
+    } catch(err){
+        if(err instanceof jwt.JsonWebTokenError)
+            return next(new UnauthorizedError('Invalid token'))
+        if(err instanceof jwt.TokenExpiredError)
+            return next(new UnauthorizedError('Token expired'))
+    }
+}
 };

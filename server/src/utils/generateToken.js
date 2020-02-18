@@ -3,7 +3,7 @@ import { JWT } from '../constants'
 
 const generateAccessToken = (id, role) => {
     const payload = {
-        _id: id,
+        id,
         role,
         type: JWT.access.type
     };
@@ -11,6 +11,23 @@ const generateAccessToken = (id, role) => {
     return jwt.sign(payload, JWT.secret, options);
 };
 
+const generateRefreshToken = (id) => {
+    const payload = {
+        type: JWT.refresh.type,
+        id,
+    }
+    const options = { expiresIn: JWT.refresh.expiresIn }
+    return jwt.sign(payload, JWT.secret, options)
+}
+
+const generateTokenPair = (id, role) => {
+    const refreshToken = generateRefreshToken(id);
+    const accessToken = generateAccessToken(id, role);
+    return { refreshToken, accessToken }
+}
+
 module.exports = {
     generateAccessToken,
+    generateRefreshToken,
+    generateTokenPair,
 };

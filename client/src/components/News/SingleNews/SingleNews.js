@@ -3,6 +3,7 @@ import styles from './SingleNews.module.sass'
 import connect from 'react-redux/es/connect/connect'
 import {getSingleNewsAction} from "../../../actions/actionCreator";
 import _ from 'lodash'
+import {SERVER_URL} from "../../../api/ConstantURLs";
 
 class SingleNews extends React.Component{
     componentDidMount(){
@@ -12,7 +13,12 @@ class SingleNews extends React.Component{
     render(){
         return(
             <article className={styles.container}>
-                { !_.isEmpty(this.props.singleNews) && <h2>{this.props.singleNews.title}</h2>}
+                { !_.isEmpty(this.props.singleNews) &&
+                <>
+                    <h2>{this.props.singleNews.title}</h2>
+                    <img src={SERVER_URL + this.props.singleNews.main_img} alt={"Фото: " + this.props.singleNews.title}/>
+                    <p>{this.props.singleNews.content}</p>
+                </>}
             </article>
         )
     }

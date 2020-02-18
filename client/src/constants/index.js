@@ -8,3 +8,7 @@ export const PATHS = {
     MAIN_PAGE: '/',
     NOT_FOUND: '*'
 };
+export const STORAGE_KEYS = {
+    ACCESS_TOKEN_TYPE: "access",
+    REFRESH_TOKEN_TYPE: "refresh"
+};

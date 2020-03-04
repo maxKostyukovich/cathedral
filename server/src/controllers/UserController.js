@@ -11,41 +11,38 @@ module.exports.createUser = async (req, res, next) => {
 };
 
 module.exports.loginUser = async (req, res, next) => {
-    const { email, password } = req.body;
+    const {email, password} = req.body;
     try {
-        const user = await User.findOne({where: { email } });
-        if(!user){
+        const user = await User.findOne({where: {email}});
+        if (!user) {
             return next(new UnauthorizedError("Invalid credentials"))
         }
 
         const access = await bcrypt.compare(password, user.password);
-        if(access){
+        if (access) {
             const tokenPair = generateTokenPair(user.id, user.role);
             res.send({
-                user: { login: user.login },
+                user: {login: user.login},
                 tokenPair
             });
-        } else{
+        } else {
             next(new UnauthorizedError("Invalid credentials"))
         }
-    } catch(e){
+    } catch (e) {
         next(e);
     }
+};
 module.exports.refreshToken = async (req, res, next) => {
-    const refreshToken = req.body.refreshToken
+    const refreshToken = req.body.refreshToken;
     try {
-        const payload = jwt.verify(refreshToken, JWT.secret)
+        const payload = jwt.verify(refreshToken, JWT.secret);
         if(payload.type !== JWT.refresh.type){
-           throw new Error('Invalid token type')
+           return next(new Error('Invalid token type'))
         }
         const user = await User.findByPk(payload.id);
-        const tokenPair = generateTokenPair(user.id, user.role)
+        const tokenPair = generateTokenPair(user.id, user.role);
         res.send({ tokenPair })
     } catch(err){
-        if(err instanceof jwt.JsonWebTokenError)
-            return next(new UnauthorizedError('Invalid token'))
-        if(err instanceof jwt.TokenExpiredError)
-            return next(new UnauthorizedError('Token expired'))
+       next(err);
     }
-}
 };

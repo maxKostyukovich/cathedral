@@ -12,18 +12,15 @@ import { accessTokenVerify, refreshTokenVerify } from '../middleware/authMiddlew
 const upload = multer({storage : createDiskStorageConfig(multer, __dirname, '../../public/images/mainPhotoNews')});
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-   res.send({ok: "ok"});
-});
-
 router.post('/user', hashPassMiddleware, userController.createUser);
 router.post('/login', validation(loginUserValidationScheme), userController.loginUser);
 
 router.get('/news/:id', newsController.getNews);
 router.get('/news', newsController.getAllNews);
-router.post('/news'/*validation(createNewsValidationScheme)*/,upload.single('main_img'), newsController.createNews);
-router.delete('/news/:id', newsController.deleteNews);
+router.post('/news', accessTokenVerify, upload.single('main_img'), validation(createNewsValidationScheme), newsController.createNews);
+router.put('/news/:id', accessTokenVerify, upload.single('main_img'), newsController.update);
+router.delete('/news/:id', accessTokenVerify, newsController.deleteNews);
 
-router.post('/refresh', userController.refreshToken);
+router.post('/refresh', refreshTokenVerify, userController.refreshToken);
 
 module.exports = router;

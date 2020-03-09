@@ -1,25 +1,35 @@
 import express from 'express'
 import multer from 'multer'
 
+import { ROUTES } from "../constants";
 import hashPassMiddleware from '../middleware/hashPassMiddleware';
 import newsController from '../controllers/NewsController';
 import userController from '../controllers/UserController'
+import priestController from '../controllers/PriestController'
 import validation from '../middleware/validationMiddleware'
 import loginUserValidationScheme from '../utils/validationOnLogin'
 import createNewsValidationScheme from '../utils/validationOnCreateNews'
 import createDiskStorageConfig from '../middleware/multer/createDiskStorageConfig'
 import { accessTokenVerify, refreshTokenVerify } from '../middleware/authMiddleware'
-const upload = multer({storage : createDiskStorageConfig(multer, __dirname, '../../public/images/mainPhotoNews')});
+const uploadMainNewsImage = multer({storage : createDiskStorageConfig(multer, __dirname, '../../public/images/mainPhotoNews')});
+const uploadPriestAvatar = multer({storage : createDiskStorageConfig(multer, __dirname, '../../public/images/priestsAvatars')});
 const router = express.Router();
 
-router.post('/user', hashPassMiddleware, userController.createUser);
-router.post('/login', validation(loginUserValidationScheme), userController.loginUser);
+router.post(ROUTES.USER, hashPassMiddleware, userController.createUser);
+router.post(ROUTES.LOGIN, validation(loginUserValidationScheme), userController.loginUser);
 
-router.get('/news/:id', newsController.getNews);
-router.get('/news', newsController.getAllNews);
-router.post('/news', accessTokenVerify, upload.single('main_img'), validation(createNewsValidationScheme), newsController.createNews);
-router.put('/news/:id', accessTokenVerify, upload.single('main_img'), newsController.update);
-router.delete('/news/:id', accessTokenVerify, newsController.deleteNews);
+router.get(ROUTES.NEWS_ID, newsController.getNews);
+router.get(ROUTES.NEWS, newsController.getAllNews);
+router.post(ROUTES.NEWS, accessTokenVerify, uploadMainNewsImage.single('main_img'), validation(createNewsValidationScheme), newsController.createNews);
+router.put(ROUTES.NEWS_ID, accessTokenVerify, uploadMainNewsImage.single('main_img'), newsController.update);
+router.delete(ROUTES.NEWS_ID, accessTokenVerify, newsController.deleteNews);
+
+router.get(ROUTES.PRIEST, priestController.getAll);
+router.get(ROUTES.PRIEST_ID, priestController.get);
+router.post(ROUTES.PRIEST, accessTokenVerify, uploadPriestAvatar.single('avatar'), priestController.create);
+router.put(ROUTES.PRIEST_ID, accessTokenVerify, uploadPriestAvatar.single('avatar'), priestController.update);
+router.delete(ROUTES.PRIEST_ID, accessTokenVerify, priestController.delete);
+
 
 router.post('/refresh', refreshTokenVerify, userController.refreshToken);
 

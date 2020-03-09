@@ -10,10 +10,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        birth_date: {
-            type: DataTypes.DATEONLY
-        },
         current_position: {
+            type: DataTypes.STRING
+        },
+        biography: {
+            type: DataTypes.TEXT
+        },
+        avatar: {
             type: DataTypes.STRING
         },
     });

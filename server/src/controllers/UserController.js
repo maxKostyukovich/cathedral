@@ -22,7 +22,7 @@ module.exports.loginUser = async (req, res, next) => {
         if (access) {
             const tokenPair = generateTokenPair(user.id, user.role);
             res.send({
-                user: {login: user.login},
+                user: {login: user.login, email: user.email},
                 tokenPair
             });
         } else {

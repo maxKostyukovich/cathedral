@@ -3,17 +3,18 @@ import styles from './LoginForm.module.sass'
 import { Field, reduxForm } from 'redux-form'
 import connect from 'react-redux/es/connect/connect'
 import { compose } from 'redux';
+import {loginAction} from '../../../actions/actionCreator'
 
 class LoginForm extends React.Component {
 
     onFormSubmit = (data) =>{
-        console.log(data);
+        this.loginAction(data);
     };
     render() {
         return(
             <form>
                 <div className={styles.container}>
-                    <Field name={'login'} component={'input'} type={'text'}/>
+                    <Field name={'email'} component={'input'} type={'text'}/>
                     <Field name={'password'} component={'input'} type={'password'}/>
                     <button onClick={this.props.handleSubmit(this.onFormSubmit)}>Submit button</button>
                 </div>
@@ -23,12 +24,12 @@ class LoginForm extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
+    loginAction: (data) => dispatch(data),
 });
 
 const mapStateToProps = (state) => {
     return {
-
+        
     }
 };
 

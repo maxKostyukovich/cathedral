@@ -2,8 +2,6 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import connect from 'react-redux/es/connect/connect'
 import { compose } from 'redux';
-
-
 import styles from './NewsForm.module.sass'
 import TextInput from '../Inputs/TextInput/TextInput'
 import TextAreaInput from '../Inputs/TextAreaInput/TextAreaInput'
@@ -11,14 +9,19 @@ import SubmitButton from '../Buttons/SubmitFormButton/SubmitFormButton'
 import FileInput from '../Inputs/FileInput/FileInput'
 import DatePicker from '../Inputs/DatePicker/DatePicker'
 import {createNews} from '../../../api/restApi'
+
 class NewsForm extends React.Component{
     onFormSubmit =  (data) => {
         const {main_img, ...rest} = data;
+        const date = (new Date(rest.date)).toJSON();
         const formData = new FormData();
         if(main_img){
             formData.append('main_img', main_img);
         }
-        formData.append('news', JSON.stringify(rest));
+        formData.append('title', rest.title);
+        formData.append('date', date);
+        formData.append('short_description', rest.short_description);
+        formData.append('content', rest.content);
         createNews(formData);
     };
     render(){

@@ -26,6 +26,13 @@ export default function (state = initialState, action) {
                 singleNews: action.singleNews
             }
         }
+        case ACTION.CREATE_NEWS_RESPONSE: {
+            return {
+                ...state,
+                err: null,
+                news: this.news.push(action.newNews)
+            };
+        }
         case ACTION.NEWS_REQUEST: {
             return {
                 ...state,

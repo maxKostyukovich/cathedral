@@ -8,7 +8,7 @@ import {loginAction} from '../../../actions/actionCreator'
 class LoginForm extends React.Component {
 
     onFormSubmit = (data) =>{
-        this.loginAction(data);
+        this.props.loginAction(data);
     };
     render() {
         return(
@@ -24,7 +24,7 @@ class LoginForm extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    loginAction: (data) => dispatch(data),
+    loginAction: (data) => dispatch(loginAction(data)),
 });
 
 const mapStateToProps = (state) => {

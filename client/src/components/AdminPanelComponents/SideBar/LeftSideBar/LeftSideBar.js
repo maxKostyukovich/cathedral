@@ -1,6 +1,8 @@
 import React from 'react'
 import styles from './LeftSideBar.module.sass'
 import { Link } from "react-router-dom";
+import rootReducer from "../../../../reducers";
+import {PATHS} from "../../../../constants";
 
 class LeftSideBar extends React.Component{
 
@@ -17,7 +19,7 @@ class LeftSideBar extends React.Component{
                         <span></span>
                     </div>
                     <ul>
-                        <li>Новости</li>
+                        <li><Link to={`${PATHS.ADMIN_PANEL}/news`}>Новости</Link></li>
                         <li>Священики</li>
                     </ul>
                 </div>

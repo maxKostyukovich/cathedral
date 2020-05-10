@@ -20,7 +20,7 @@ class LeftSideBar extends React.Component{
                     </div>
                     <ul>
                         <li><Link to={`${PATHS.ADMIN_PANEL}/news`}>Новости</Link></li>
-                        <li>Священики</li>
+                        <li><Link to={`${PATHS.ADMIN_PANEL}/priest`}>Священики</Link></li>
                     </ul>
                 </div>
         )

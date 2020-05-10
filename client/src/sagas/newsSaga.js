@@ -5,7 +5,7 @@ import {getAllNews, getSingleNews, createNews} from "../api/restApi";
 export function* getAllNewsSaga({ params }) {
     yield put({ type: ACTION.NEWS_REQUEST });
     try{
-        const { data } = yield getAllNews(params.limit);
+        const { data } = yield getAllNews(params);
         yield put({type:ACTION.GET_ALL_NEWS_RESPONSE, news: data});
     }catch (err) {
         yield put({type: ACTION.NEWS_ERROR, err: {

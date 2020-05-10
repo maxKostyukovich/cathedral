@@ -8,7 +8,7 @@ import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 import Header from "../Header/Header";
 import Navbar from "../Navbar/Navbar";
 import SingleNews from "../News/SingleNews/SingleNews";
-
+import connect from 'react-redux/es/connect/connect'
 class MainRouteSwitcher extends React.Component{
 
     render(){
@@ -29,4 +29,4 @@ class MainRouteSwitcher extends React.Component{
     }
 
 }
-export default MainRouteSwitcher
+export default connect()(MainRouteSwitcher)

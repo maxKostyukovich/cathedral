@@ -10,7 +10,31 @@ export const getSingleNewsAction = (id) => ({
    id
 });
 
+export const deleteNewsAction = (id) => ({
+   type: ACTION.DELETE_NEWS_ACTION,
+   id
+})
+
 export const loginAction = (data) => ({
    type: ACTION.LOGIN_ACTION,
    data
 });
+
+export const getAllPriestsAction = () => ({
+   type: ACTION.GET_ALL_PRIEST_ACTION
+})
+
+export const getSinglePriestAction = (id) => ({
+   type: ACTION.GET_SINGLE_PRIEST_ACTION,
+   id
+})
+
+export const createPriestAction = (priest) => ({
+   type: ACTION.CREATE_PRIEST_ACTION,
+   priest
+})
+
+export const deletePriestAction = (id) => ({
+   type: ACTION.DELETE_PRIEST_ACTION,
+   id
+})

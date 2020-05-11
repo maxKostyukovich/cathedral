@@ -24,7 +24,7 @@ const cutLongText = (text) => {
        return text.slice(0, limit - 4) + ' ...'
     }
     return text
-}
+};
 
 const StyledTableCell = withStyles((theme) => ({
     head: {

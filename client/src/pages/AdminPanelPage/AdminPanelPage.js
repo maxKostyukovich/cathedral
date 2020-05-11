@@ -10,6 +10,8 @@ import connect from 'react-redux/es/connect/connect'
 import NewsTable from "../../components/AdminPanelComponents/DataTables/NewsTable/NewsTable";
 import PriestTable from "../../components/AdminPanelComponents/DataTables/PriestTable/PriestTable";
 import TablePage from './TablePage/TablePage';
+import {newsTableText, priestTableText} from "./textConstants";
+
 class AdminPanelPage extends React.Component {
     constructor(props) {
         super(props);
@@ -31,13 +33,20 @@ class AdminPanelPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div >
                 <LeftSideBar menuClickHandler={this.menuClickHandler} isMenuOpen={this.state.isMenuOpen}/>
-                <div className={styles.header}></div>
+                <div className={styles.header}>
+                    <div className={styles.headerBox}>
+                        <span className={styles.headerTitle}>Admin panel</span>
+                        <div className={styles.userBox}>
+                            <span>Login box</span>
+                        </div>
+                    </div>
+                </div>
                 <div className={styles.container}>
                     <Route exact path={PATHS.ADMIN_PANEL} component={Home}/>
-                    <Route path={PATHS.ADMIN_PANEL + '/news'} render={(props) => <TablePage {...props} table={NewsTable} data = {this.props.news}/>}/>
-                    <Route path={PATHS.ADMIN_PANEL + '/priest'} render={(props) => <TablePage {...props} table={PriestTable} data = {this.props.priests} />}/>
+                    <Route path={PATHS.ADMIN_PANEL + '/news'} render={(props) => <TablePage {...props} text={newsTableText} table={NewsTable} data = {this.props.news}/>}/>
+                    <Route path={PATHS.ADMIN_PANEL + '/priest'} render={(props) => <TablePage {...props} text={priestTableText} table={PriestTable} data = {this.props.priests} />}/>
                 </div>
             </div>
         )

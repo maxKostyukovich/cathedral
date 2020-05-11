@@ -11,6 +11,7 @@ import {SERVER_URL} from '../../../../api/ConstantURLs';
 import styles from './NewsTable.module.sass'
 import trash from '../../../../images/trash.png';
 import edit from '../../../../images/edit.png';
+import plus from '../../../../images/plus.png';
 import connect from 'react-redux/es/connect/connect'
 import {deleteNewsAction} from "../../../../actions/actionCreator";
 const useStyles = makeStyles({
@@ -41,7 +42,10 @@ const StyledTableCell = withStyles((theme) => ({
 function NewsTable(props) {
     const onTrashClickHandler = (id) => {
         return () => {
-            props.deleteNewsAction(id)
+            const isConfirm = window.confirm(`Вы уверены что хотите удалить запись с id ${id}`)
+            if (isConfirm) {
+                props.deleteNewsAction(id)
+            }
         }
     }
     const classes = useStyles();
@@ -56,7 +60,9 @@ function NewsTable(props) {
                         <StyledTableCell>Short description</StyledTableCell>
                         <StyledTableCell align="center">Date</StyledTableCell>
                         <StyledTableCell align="center">Main image</StyledTableCell>
-                        <StyledTableCell> </StyledTableCell>
+                        <StyledTableCell>
+                            <img style={{width: '40px', height:'40px'}} src={plus} alt={'Create news'}/>
+                        </StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

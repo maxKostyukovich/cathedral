@@ -5,7 +5,8 @@ class TablePage  extends React.Component{
     render() {
         const Table = this.props.table;
         return (
-            <div>
+            <div className={styles.container}>
+                <h1>{this.props.text.title}</h1>
                 <Table {...this.props} data={this.props.data}/>
             </div>
         )

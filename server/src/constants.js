@@ -19,7 +19,7 @@ export const STATIC_PATH_AVATAR_PRIEST = '/static/priestsAvatars/';
 
 export const ROUTES = {
     NEWS: '/news',
-    NEWS_ID: 'news/:id',
+    NEWS_ID: '/news/:id',
     PRIEST: '/priest',
     PRIEST_ID: '/priest/:id',
     LOGIN: '/login',

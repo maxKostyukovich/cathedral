@@ -79,7 +79,7 @@ module.exports.deleteNews = async (req, res, next) => {
             if (err) throw err
         });
         const countOfModifiedFields = await News.destroy({where: {id: req.params.id}});
-        res.send({modified: countOfModifiedFields});
+        res.status(200).send({modified: countOfModifiedFields});
     } catch(e){
         return next(e);
     }

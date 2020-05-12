@@ -30,7 +30,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 err: null,
-                news: this.news.push(action.newNews)
+                news: action.addedNews
             };
         }
         case ACTION.NEWS_REQUEST: {

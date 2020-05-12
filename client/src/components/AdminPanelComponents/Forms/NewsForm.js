@@ -8,10 +8,10 @@ import TextAreaInput from '../Inputs/TextAreaInput/TextAreaInput'
 import SubmitButton from '../Buttons/SubmitFormButton/SubmitFormButton'
 import FileInput from '../Inputs/FileInput/FileInput'
 import DatePicker from '../Inputs/DatePicker/DatePicker'
-import {createNews} from '../../../api/restApi'
+import {createNewsAction} from "../../../actions/actionCreator";
 
 class NewsForm extends React.Component{
-    onFormSubmit =  (data) => {
+    onFormSubmit =  async (data) => {
         const {main_img, ...rest} = data;
         const date = (new Date(rest.date)).toJSON();
         const formData = new FormData();
@@ -22,18 +22,9 @@ class NewsForm extends React.Component{
         formData.append('date', date);
         formData.append('short_description', rest.short_description);
         formData.append('content', rest.content);
-        createNews(formData);
+        this.props.createNewsAction(formData);
     };
     render(){
-        // const onFormSubmit =  (data) => {
-        //     const {main_img, ...rest} = data;
-        //     const formData = new FormData();
-        //     if(main_img){
-        //         formData.append('main_img', main_img);
-        //     }
-        //     formData.append('news', JSON.stringify(rest));
-        //      createNews(formData);
-        // };
         return(
             <form>
                 <div className={styles.container}>
@@ -51,6 +42,7 @@ class NewsForm extends React.Component{
 }
 
 const mapDispatchToProps = (dispatch) => ({
+    createNewsAction: (formData) => dispatch(createNewsAction(formData)),
 
 });
 
@@ -60,6 +52,6 @@ const mapStateToProps = (state) => {
  }
 };
 
-export default compose(connect(mapStateToProps,mapDispatchToProps),reduxForm({
+export default compose(connect(null,mapDispatchToProps),reduxForm({
     form: 'newsForm',
 }))(NewsForm);

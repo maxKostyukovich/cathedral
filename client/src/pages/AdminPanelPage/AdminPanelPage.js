@@ -21,6 +21,7 @@ class AdminPanelPage extends React.Component {
     }
 
     componentDidMount() {
+        console.log('component did mount')
         this.props.getAllPriestsAction();
         this.props.getAllNewsAction();
     }
@@ -52,7 +53,6 @@ class AdminPanelPage extends React.Component {
         )
     }
 }
-
 const mapDispatchToProps = (dispatch) => ({
     getAllNewsAction: (params) => dispatch(getAllNewsAction(params)),
     getAllPriestsAction: () => dispatch(getAllPriestsAction()),

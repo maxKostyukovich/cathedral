@@ -10,6 +10,11 @@ export const getSingleNewsAction = (id) => ({
    id
 });
 
+export const createNewsAction = (formData) => ({
+   type: ACTION.CREATE_NEWS_ACTION,
+   formData
+})
+
 export const deleteNewsAction = (id) => ({
    type: ACTION.DELETE_NEWS_ACTION,
    id
@@ -38,3 +43,8 @@ export const deletePriestAction = (id) => ({
    type: ACTION.DELETE_PRIEST_ACTION,
    id
 })
+
+export const changeStatusModalFormAction = (isActive) => ({
+   type: ACTION.MODAL_FORM_CHANGE_STATUS_ACTION,
+   isActive
+});

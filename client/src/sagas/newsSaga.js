@@ -30,11 +30,14 @@ export function* getSingleNewsSaga({ id }) {
     }
 }
 
-export function* createNewsSaga({news}) {
+export function* createNewsSaga({formData}) {
     try{
-        if(news) {
-            const {data} = yield createNews(news);
-            yield put({type: ACTION.GET_SINGLE_NEWS_RESPONSE, newNews: data});
+        if(formData) {
+            const {data} = yield createNews(formData);
+            const state = yield select();
+            const newData = [...state.newsReducer.news];
+            newData.push(data);
+            yield put({type: ACTION.GET_SINGLE_NEWS_RESPONSE, addedNews: newData});
         }
     }catch (err) {
         yield put({type: ACTION.NEWS_ERROR, err: {

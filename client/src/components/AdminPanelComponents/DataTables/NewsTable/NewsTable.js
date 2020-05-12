@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,16 +13,19 @@ import trash from '../../../../images/trash.png';
 import edit from '../../../../images/edit.png';
 import plus from '../../../../images/plus.png';
 import connect from 'react-redux/es/connect/connect'
-import {deleteNewsAction} from "../../../../actions/actionCreator";
+import {deleteNewsAction, changeStatusModalFormAction} from "../../../../actions/actionCreator";
+import ModalWindow from "../../ModalWindow/ModalWindow";
+import NewsForm from "../../Forms/NewsForm";
+
 const useStyles = makeStyles({
     table: {
-        minWidth: 650,
+        minWidth: 550
     },
 });
 const cutLongText = (text) => {
     const limit = 60;
     if (text.length > limit) {
-       return text.slice(0, limit - 4) + ' ...'
+        return text.slice(0, limit - 4) + ' ...'
     }
     return text
 };
@@ -48,61 +51,68 @@ function NewsTable(props) {
             }
         }
     }
+    const openModalWindow = () => {
+        props.changeStatusModalFormAction(true);
+    }
     const classes = useStyles();
     const data = props.data;
     return (
-        <TableContainer  component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead style={{backgroundColor: 'black', color: 'white'}}>
-                    <TableRow>
-                        <StyledTableCell align={'center'}>id</StyledTableCell>
-                        <StyledTableCell align="center">Title</StyledTableCell>
-                        <StyledTableCell>Short description</StyledTableCell>
-                        <StyledTableCell align="center">Date</StyledTableCell>
-                        <StyledTableCell align="center">Main image</StyledTableCell>
-                        <StyledTableCell>
-                            <img style={{width: '40px', height:'40px'}} src={plus} alt={'Create news'}/>
-                        </StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map((row) => (
-                        <TableRow key={row.id}>
-                            <StyledTableCell align="center" component="th" scope="row">
-                                {row.id}
-                            </StyledTableCell>
-                            <StyledTableCell align="center">{row.title}</StyledTableCell>
-                            <StyledTableCell>{cutLongText(row.short_description)}</StyledTableCell>
-                            <StyledTableCell align="center">{row.date}</StyledTableCell>
+        <>
+            <ModalWindow form={NewsForm}/>
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead style={{backgroundColor: 'black', color: 'white'}}>
+                        <TableRow>
+                            <StyledTableCell align={'center'}>id</StyledTableCell>
+                            <StyledTableCell align="center">Title</StyledTableCell>
+                            <StyledTableCell>Short description</StyledTableCell>
+                            <StyledTableCell align="center">Date</StyledTableCell>
+                            <StyledTableCell align="center">Main image</StyledTableCell>
                             <StyledTableCell align="center">
-                                <a href={SERVER_URL + row.main_img}>{row.main_img.split('/')[3]}</a>
-                            </StyledTableCell>
-                            <StyledTableCell className={styles.editCell}>
-                                <div className={styles.icon}>
-                                    <img src={edit} alt={'edit'}/>
-                                </div>
-                                <div className={styles.icon} onClick={onTrashClickHandler(row.id)}>
-                                    <img src={trash} alt={'trash'}/>
-                                </div>
+                                <img style={{width: '40px', height: '40px'}} src={plus} alt={'Create news'} onClick={openModalWindow}/>
                             </StyledTableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((row) => (
+                            <TableRow key={row.id}>
+                                <StyledTableCell align="center" component="th" scope="row">
+                                    {row.id}
+                                </StyledTableCell>
+                                <StyledTableCell align="center">{row.title}</StyledTableCell>
+                                <StyledTableCell>{cutLongText(row.short_description)}</StyledTableCell>
+                                <StyledTableCell align="center">{row.date}</StyledTableCell>
+                                <StyledTableCell align="center">
+                                    <a href={SERVER_URL + row.main_img}>{row.main_img.split('/')[3]}</a>
+                                </StyledTableCell>
+                                <StyledTableCell align="center" className={styles.editCell}>
+                                    <div className={styles.icon}>
+                                        <img src={edit} alt={'edit'}/>
+                                    </div>
+                                    <div className={styles.icon} onClick={onTrashClickHandler(row.id)}>
+                                        <img src={trash} alt={'trash'}/>
+                                    </div>
+                                </StyledTableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </>
     );
 }
 
 const mapDispatchToProps = (dispatch) => ({
     deleteNewsAction: (id) => dispatch(deleteNewsAction(id)),
+    changeStatusModalFormAction: (status) => dispatch(changeStatusModalFormAction(status)),
 });
 
 const mapStateToProps = (state) => {
-    const { news } = state.newsReducer;
+    const {news} = state.newsReducer;
     return {
         news
     }
 };
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(NewsTable)
+export default connect(mapStateToProps, mapDispatchToProps)(NewsTable)

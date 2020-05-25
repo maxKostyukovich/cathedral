@@ -42,13 +42,13 @@ module.exports.get = async (req, res, next) => {
 module.exports.update = async (req, res, next) => {
     try {
         let news = req.body;
-        const oldNews = await News.findByPk(req.params.id);
-        if (!oldNews) {
+        const oldPriest = await Priest.findByPk(req.params.id);
+        if (!oldPriest) {
             return next(new NotFoundError('Priest was not found'));
         }
         if (req.file) {
-            fs.unlink("public/images/priestsAvatars/" + oldNews.avatar, (err) => {
-                if (err) throw err
+            fs.unlink("public/images/priestsAvatars/" + oldPriest.avatar, (err) => {
+                if (err) return next(err)
             });
             news.avatar = req.file.filename;
         }

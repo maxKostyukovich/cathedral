@@ -1,7 +1,7 @@
 import ACTION from '../actions/actionTypes';
 
 const initialState = {
-    user: {},
+    user: null,
     isFetching: false,
     err: null,
 };
@@ -23,6 +23,22 @@ export default function (state = initialState, action) {
                 isFetching: true,
                 err: null
             }
+        }
+        case ACTION.LOGOUT_CLEAR: {
+            return {
+                ...state,
+                isFetching: false,
+                err: null,
+                user: null
+            };
+        }
+        case ACTION.GET_USER_RESPONSE: {
+            return {
+                ...state,
+                isFetching: false,
+                err: null,
+                user: action.user
+            };
         }
         case ACTION.LOGIN_ERROR: {
             return {

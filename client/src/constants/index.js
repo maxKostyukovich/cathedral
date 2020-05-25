@@ -1,11 +1,11 @@
 export const PATHS = {
-    CHURCH_PRIESTS: '/church/priests',
+    CHURCH_PRIESTS: '/home/church/priests',
     ADMIN_PANEL: '/admin-panel',
-    NEWS: '/news',
-    NEWS_WITH_ID: '/news/:id',
-    LOGIN: '/login',
-    GALLERY: '/gallery',
-    MAIN_PAGE: '/',
+    NEWS: '/home/news',
+    NEWS_WITH_ID: '/home/news/:id',
+    LOGIN: '/home/login',
+    GALLERY: '/home/gallery',
+    MAIN_PAGE: '/home',
     NOT_FOUND: '*'
 };
 export const STORAGE_KEYS = {
@@ -14,3 +14,8 @@ export const STORAGE_KEYS = {
 };
 
 export const BEARER = 'Bearer ';
+
+export const MODAL_FORM_STATUS_MODE = {
+    CREATE: 'CREATE',
+    UPDATE: 'UPDATE',
+};

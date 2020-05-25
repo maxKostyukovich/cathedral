@@ -51,7 +51,7 @@ module.exports.update = async (req, res, next) => {
         let news = req.body;
         const oldNews = await News.findByPk(req.params.id);
         if (!oldNews) {
-            return next(new NotFoundError('Post was not found'));
+            return next(new NotFoundError('News not found'));
         }
         if (req.file) {
             fs.unlink("public/images/mainPhotoNews/" + oldNews.main_img, (err) => {
@@ -76,7 +76,7 @@ module.exports.deleteNews = async (req, res, next) => {
                 return next(new NotFoundError('News not found'))
         }
         fs.unlink("public/images/mainPhotoNews/" + news.main_img, (err) => {
-            if (err) throw err
+            if (err) return next(err);
         });
         const countOfModifiedFields = await News.destroy({where: {id: req.params.id}});
         res.status(200).send({modified: countOfModifiedFields});

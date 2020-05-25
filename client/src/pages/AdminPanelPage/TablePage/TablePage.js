@@ -6,7 +6,6 @@ class TablePage  extends React.Component{
         const Table = this.props.table;
         return (
             <div className={styles.container}>
-                <h1>{this.props.text.title}</h1>
                 <Table {...this.props} data={this.props.data}/>
             </div>
         )

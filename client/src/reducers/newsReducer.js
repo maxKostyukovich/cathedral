@@ -3,6 +3,7 @@ import ACTION from '../actions/actionTypes';
 const initialState = {
     news: [],
     singleNews: {},
+    initializeNews: {},
     isFetching: false,
     err: null,
 };
@@ -33,12 +34,25 @@ export default function (state = initialState, action) {
                 news: action.addedNews
             };
         }
+        case ACTION.INITIALIZE_NEWS_RESPONSE: {
+            return {
+                ...state,
+                err: null,
+                initializeNews: action.initializeNews
+            }
+        }
         case ACTION.NEWS_REQUEST: {
             return {
                 ...state,
                 isFetching: true,
                 err: null,
             };
+        }
+        case ACTION.CLEAR_INITIALIZE_VALUES_ACTION: {
+            return {
+                ...state,
+                initializeNews: {}
+            }
         }
         case ACTION.NEWS_ERROR: {
             return {

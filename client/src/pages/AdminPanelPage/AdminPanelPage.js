@@ -4,13 +4,14 @@ import LeftSideBar from '../../components/AdminPanelComponents/SideBar/LeftSideB
 import {Route} from "react-router";
 import Home from "../../components/AdminPanelComponents/Home/Home";
 import {PATHS} from "../../constants";
-import DataList from "../../components/AdminPanelComponents/DataList/DataList";
-import {getAllNewsAction, getAllPriestsAction} from "../../actions/actionCreator";
+import {getAllNewsAction, getAllPriestsAction, logoutAction} from "../../actions/actionCreator";
 import connect from 'react-redux/es/connect/connect'
 import NewsTable from "../../components/AdminPanelComponents/DataTables/NewsTable/NewsTable";
 import PriestTable from "../../components/AdminPanelComponents/DataTables/PriestTable/PriestTable";
 import TablePage from './TablePage/TablePage';
 import {newsTableText, priestTableText} from "./textConstants";
+import exit from '../../images/exit.png'
+import { Link } from "react-router-dom";
 
 class AdminPanelPage extends React.Component {
     constructor(props) {
@@ -21,7 +22,6 @@ class AdminPanelPage extends React.Component {
     }
 
     componentDidMount() {
-        console.log('component did mount')
         this.props.getAllPriestsAction();
         this.props.getAllNewsAction();
     }
@@ -40,7 +40,11 @@ class AdminPanelPage extends React.Component {
                     <div className={styles.headerBox}>
                         <span className={styles.headerTitle}>Admin panel</span>
                         <div className={styles.userBox}>
-                            <span>Login box</span>
+                            <div className={styles.userInfoContainer}>
+                                <span>Admin:</span>
+                                <span>{this.props.user.email}</span>
+                            </div>
+                            <Link to={'/home'}><div className={styles.logout} onClick={this.props.logoutAction}>Sign out<img style={{marginLeft: '3px'}} src={exit} alt={'exit'}/></div></Link>
                         </div>
                     </div>
                 </div>
@@ -56,6 +60,7 @@ class AdminPanelPage extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
     getAllNewsAction: (params) => dispatch(getAllNewsAction(params)),
     getAllPriestsAction: () => dispatch(getAllPriestsAction()),
+    logoutAction: () => dispatch(logoutAction())
 });
 
 const mapStateToProps = (state) => {

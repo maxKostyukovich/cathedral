@@ -4,6 +4,8 @@ import { Field, reduxForm } from 'redux-form'
 import connect from 'react-redux/es/connect/connect'
 import { compose } from 'redux';
 import {loginAction} from '../../../actions/actionCreator'
+import TextInput from '../../AdminPanelComponents/Inputs/TextInput/TextInput'
+import SubmitButton from '../../AdminPanelComponents/Buttons/SubmitFormButton/SubmitFormButton'
 
 class LoginForm extends React.Component {
 
@@ -12,11 +14,13 @@ class LoginForm extends React.Component {
     };
     render() {
         return(
-            <form>
-                <div className={styles.container}>
-                    <Field name={'email'} component={'input'} type={'text'}/>
-                    <Field name={'password'} component={'input'} type={'password'}/>
-                    <button onClick={this.props.handleSubmit(this.onFormSubmit)}>Submit button</button>
+
+            <form className={styles.container}>
+                <h2 className={styles.title}>Форма входа в Админ Панель</h2>
+                <div className={styles.formContainer}>
+                    <Field name={'email'} component={TextInput} type={'text'} label={'Email'}/>
+                    <Field name={'password'} component={TextInput} type={'password'} label={'Пароль'}/>
+                    <SubmitButton text={'Войти'} handler={this.props.handleSubmit(this.onFormSubmit)}/>
                 </div>
             </form>
         )
@@ -29,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
     return {
-        
+
     }
 };
 

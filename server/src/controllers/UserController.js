@@ -32,6 +32,17 @@ module.exports.loginUser = async (req, res, next) => {
         next(e);
     }
 };
+
+module.exports.getUser = async (req, res, next) => {
+    try {
+        const user = await User.findByPk(req.payload.id, {attributes: {exclude: ['password', 'role', 'createdAt', 'updatedAt']}});
+        res.send(user);
+    } catch (err) {
+        return next(err)
+    }
+
+};
+
 module.exports.refreshToken = async (req, res, next) => {
     const refreshToken = req.body.refreshToken;
     try {

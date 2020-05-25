@@ -17,6 +17,7 @@ const router = express.Router();
 
 router.post(ROUTES.USER, hashPassMiddleware, userController.createUser);
 router.post(ROUTES.LOGIN, validation(loginUserValidationScheme), userController.loginUser);
+router.get(ROUTES.USER, accessTokenVerify, userController.getUser);
 
 router.get(ROUTES.NEWS_ID, newsController.getNews);
 router.get(ROUTES.NEWS, newsController.getAllNews);

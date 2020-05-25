@@ -3,7 +3,9 @@ import styles from './SingleNews.module.sass'
 import connect from 'react-redux/es/connect/connect'
 import {getSingleNewsAction} from "../../../actions/actionCreator";
 import _ from 'lodash'
+import { Link } from "react-router-dom";
 import {SERVER_URL} from "../../../api/ConstantURLs";
+import backImg from '../../../images/chevron-double-left.png'
 
 class SingleNews extends React.Component{
     componentDidMount(){
@@ -14,11 +16,14 @@ class SingleNews extends React.Component{
         return(
             <article className={styles.container}>
                 { !_.isEmpty(this.props.singleNews) &&
-                <>
-                    <h2>{this.props.singleNews.title}</h2>
-                    <img src={SERVER_URL + this.props.singleNews.main_img} alt={"Фото: " + this.props.singleNews.title}/>
-                    <p>{this.props.singleNews.content}</p>
-                </>}
+                <div className={styles.newsContainer}>
+                    <div className={styles.titleBox}>
+                        <Link to={'/home'}><div className={styles.more}><img src={backImg} alt={'back'} /><span>Назад</span></div></Link>
+                        <h2 className={styles.newsTitle}>{this.props.singleNews.title}</h2>
+                    </div>
+                    <img className={styles.mainImg} src={SERVER_URL + this.props.singleNews.main_img} alt={"Фото: " + this.props.singleNews.title}/>
+                    <p dangerouslySetInnerHTML={{ __html: this.props.singleNews.content }} className={styles.content}/>
+                </div>}
             </article>
         )
     }

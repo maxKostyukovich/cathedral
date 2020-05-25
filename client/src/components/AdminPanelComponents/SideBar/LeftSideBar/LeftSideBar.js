@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './LeftSideBar.module.sass'
 import { Link } from "react-router-dom";
 import {PATHS} from "../../../../constants";
-import logo from '../../../../images/logo.png'
+import logo from '../../../../images/logo2.png'
 class LeftSideBar extends React.Component{
 
     render() {
@@ -20,12 +20,12 @@ class LeftSideBar extends React.Component{
 
                     <div className={styles.logo}>
                         <Link to={PATHS.ADMIN_PANEL}>
-                            <img src={logo} alt={'logo'}/>
+                            <img style={{width: '220px', height: '44px'}} src={logo} alt={'logo'}/>
                         </Link>
                     </div>
                     <ul>
-                        <li><Link to={`${PATHS.ADMIN_PANEL}/news`}>Новости</Link></li>
-                        <li><Link to={`${PATHS.ADMIN_PANEL}/priest`}>Священики</Link></li>
+                        <li><Link to={`${PATHS.ADMIN_PANEL}/news`}><span className={styles.links}>Новости</span></Link></li>
+                        <li><Link to={`${PATHS.ADMIN_PANEL}/priest`}><span className={styles.links}>Священики</span></Link></li>
                     </ul>
                 </div>
         )

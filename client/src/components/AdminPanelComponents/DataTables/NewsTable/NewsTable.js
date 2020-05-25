@@ -11,11 +11,12 @@ import {SERVER_URL} from '../../../../api/ConstantURLs';
 import styles from './NewsTable.module.sass'
 import trash from '../../../../images/trash.png';
 import edit from '../../../../images/edit.png';
-import plus from '../../../../images/plus.png';
+import plus from '../../../../images/plus-thick.png';
 import connect from 'react-redux/es/connect/connect'
-import {deleteNewsAction, changeStatusModalFormAction} from "../../../../actions/actionCreator";
+import {deleteNewsAction, changeStatusModalFormAction, initializeNewsAction} from "../../../../actions/actionCreator";
 import ModalWindow from "../../ModalWindow/ModalWindow";
-import NewsForm from "../../Forms/NewsForm";
+import NewsForm from "../../Forms/NewsForm/NewsForm";
+import {MODAL_FORM_STATUS_MODE} from "../../../../constants";
 
 const useStyles = makeStyles({
     table: {
@@ -32,7 +33,7 @@ const cutLongText = (text) => {
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: theme.palette.common.black,
+        backgroundColor: '#333333',
         color: theme.palette.common.white,
         fontSize: '18px'
     },
@@ -51,9 +52,16 @@ function NewsTable(props) {
             }
         }
     }
-    const openModalWindow = () => {
-        props.changeStatusModalFormAction(true);
+    const openCreateModalWindow = () => {
+        props.changeStatusModalFormAction(true, MODAL_FORM_STATUS_MODE.CREATE);
     }
+    const openEditModalWindow = (id) => {
+        return () => {
+            props.initializeNewsAction(id);
+            props.changeStatusModalFormAction(true, MODAL_FORM_STATUS_MODE.UPDATE);
+        }
+    }
+
     const classes = useStyles();
     const data = props.data;
     return (
@@ -69,7 +77,10 @@ function NewsTable(props) {
                             <StyledTableCell align="center">Date</StyledTableCell>
                             <StyledTableCell align="center">Main image</StyledTableCell>
                             <StyledTableCell align="center">
-                                <img style={{width: '40px', height: '40px'}} src={plus} alt={'Create news'} onClick={openModalWindow}/>
+                                <div className={styles.addButton}  onClick={openCreateModalWindow}>
+                                    <span>Add</span>
+                                    <img style={{width: '20px', height: '20px'}} src={plus} alt={'Create news'}/>
+                                </div>
                             </StyledTableCell>
                         </TableRow>
                     </TableHead>
@@ -86,7 +97,7 @@ function NewsTable(props) {
                                     <a href={SERVER_URL + row.main_img}>{row.main_img.split('/')[3]}</a>
                                 </StyledTableCell>
                                 <StyledTableCell align="center" className={styles.editCell}>
-                                    <div className={styles.icon}>
+                                    <div className={styles.icon} onClick={openEditModalWindow(row.id)}>
                                         <img src={edit} alt={'edit'}/>
                                     </div>
                                     <div className={styles.icon} onClick={onTrashClickHandler(row.id)}>
@@ -104,7 +115,8 @@ function NewsTable(props) {
 
 const mapDispatchToProps = (dispatch) => ({
     deleteNewsAction: (id) => dispatch(deleteNewsAction(id)),
-    changeStatusModalFormAction: (status) => dispatch(changeStatusModalFormAction(status)),
+    changeStatusModalFormAction: (isActive, status) => dispatch(changeStatusModalFormAction(isActive, status)),
+    initializeNewsAction: (id) => dispatch(initializeNewsAction(id))
 });
 
 const mapStateToProps = (state) => {

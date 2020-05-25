@@ -19,7 +19,7 @@ class FileInput extends React.Component {
                        onBlur={this.adaptFileEventToValue(onBlur)}
                        type="file"
                        {...inputProps}
-                    className={styles.inputFile}
+                       className={styles.inputFile}
                        />
                 <p className={styles.fileName} id={'fileName'}></p>
             </label>

@@ -3,6 +3,7 @@ import ACTION from '../actions/actionTypes';
 const initialState = {
     priests: [],
     singlePriest: {},
+    initializePriest: {},
     isFetching: false,
     err: null,
 };
@@ -11,6 +12,7 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case ACTION.GET_ALL_PRIEST_RESPONSE: {
+            console.log(action.priests);
             return {
                 ...state,
                 isFetching: false,
@@ -24,6 +26,26 @@ export default function (state = initialState, action) {
                 isFetching: false,
                 err: null,
                 singlePriest: action.singlePriest
+            }
+        }
+        case ACTION.CREATE_PRIEST_RESPONSE: {
+            return {
+                ...state,
+                err: null,
+                priests: action.addedPriest
+            };
+        }
+        case ACTION.CLEAR_INITIALIZE_VALUES_ACTION: {
+            return {
+                ...state,
+                initializePriest: {}
+            }
+        }
+        case ACTION.INITIALIZE_PRIEST_RESPONSE: {
+            return {
+                ...state,
+                err: null,
+                initializePriest: action.initializePriest
             }
         }
         case ACTION.PRIEST_REQUEST: {

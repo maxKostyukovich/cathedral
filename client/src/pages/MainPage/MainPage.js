@@ -33,7 +33,8 @@ class MainPage extends React.Component {
         return (
             <div className={styles.container}>
                 <CustomCarousel/>
-                <ul>
+                <h2 className={styles.newsTitle}>Актуальные новости</h2>
+                <ul className={styles.newsList}>
                     {
                         this.renderNews()
                     }

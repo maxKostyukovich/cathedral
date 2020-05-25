@@ -11,6 +11,7 @@ import SingleNews from "../News/SingleNews/SingleNews";
 import connect from 'react-redux/es/connect/connect'
 class MainRouteSwitcher extends React.Component{
 
+
     render(){
         return(
             <div>

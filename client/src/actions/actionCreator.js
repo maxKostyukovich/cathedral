@@ -1,5 +1,9 @@
 import ACTION from './actionTypes';
 
+export const getUserAction = () => ({
+   type: ACTION.GET_USER_ACTION
+});
+
 export const getAllNewsAction = (params) => ({
    type: ACTION.GET_ALL_NEWS_ACTION,
    params
@@ -20,6 +24,21 @@ export const deleteNewsAction = (id) => ({
    id
 })
 
+export const initializeNewsAction = (id) => ({
+   type: ACTION.INITIALIZE_NEWS_ACTION,
+   id
+})
+
+export const clearInitializeValuesAction = () => ({
+   type: ACTION.CLEAR_INITIALIZE_VALUES_ACTION
+})
+
+export const updateNewsAction = (id, news) => ({
+   type: ACTION.UPDATE_NEWS_ACTION,
+   id,
+   news
+})
+
 export const loginAction = (data) => ({
    type: ACTION.LOGIN_ACTION,
    data
@@ -34,9 +53,9 @@ export const getSinglePriestAction = (id) => ({
    id
 })
 
-export const createPriestAction = (priest) => ({
+export const createPriestAction = (formData) => ({
    type: ACTION.CREATE_PRIEST_ACTION,
-   priest
+    formData
 })
 
 export const deletePriestAction = (id) => ({
@@ -44,7 +63,23 @@ export const deletePriestAction = (id) => ({
    id
 })
 
-export const changeStatusModalFormAction = (isActive) => ({
+export const updatePriestAction = (id, priest) => ({
+   type: ACTION.UPDATE_PRIEST_ACTION,
+   id,
+   priest
+})
+
+export const initializePriestAction = (id) => ({
+    type: ACTION.INITIALIZE_PRIEST_ACTION,
+    id
+})
+
+export const changeStatusModalFormAction = (isActive, status) => ({
    type: ACTION.MODAL_FORM_CHANGE_STATUS_ACTION,
-   isActive
+   isActive,
+   status
+});
+
+export const logoutAction = () => ({
+   type: ACTION.LOGOUT_ACTION
 });

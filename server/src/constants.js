@@ -16,6 +16,7 @@ export const MULTER_TIME_FORMAT = 'x';
 
 export const STATIC_PATH_MAIN_PHOTO_NEWS = '/static/mainPhotoNews/';
 export const STATIC_PATH_AVATAR_PRIEST = '/static/priestsAvatars/';
+export const STATIC_PATH_IMAGE_GALLERY = '/static/gallery/';
 
 export const ROUTES = {
     NEWS: '/news',
@@ -25,5 +26,7 @@ export const ROUTES = {
     LOGIN: '/login',
     USER: '/user',
     REFRESH: '/refresh',
+    GALLERY: '/gallery',
+    GALLERY_ID: '/gallery/:id',
 
 };

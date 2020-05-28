@@ -33,10 +33,12 @@ const refreshTokenVerify = (req, res, next) => {
         req.payload = jwt.verify(token, JWT.secret);
         next();
     }catch (err) {
-        if(err instanceof jwt.JsonWebTokenError)
+        if(err instanceof jwt.JsonWebTokenError) {
             return next(new UnauthorizedError('Invalid token'));
-        if(err instanceof jwt.TokenExpiredError)
+        }
+        if(err instanceof jwt.TokenExpiredError) {
             return next(new UnauthorizedError('Refresh token expired'))
+        }
     }
 };
 

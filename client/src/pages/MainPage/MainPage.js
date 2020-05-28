@@ -9,7 +9,7 @@ import NewsRow from '../../components/News/NewsRow/NewsRow'
 class MainPage extends React.Component {
 
     renderNews = () => {
-        const newsArray = this.props.news
+        const newsArray = this.props.news;
         if(newsArray.length < 1){
             return null
         }

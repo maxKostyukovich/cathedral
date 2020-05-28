@@ -47,14 +47,14 @@ export default function (state = initialState, action) {
                 initializeGallery: action.initializeGallery
             }
         }
-        case ACTION.PRIEST_REQUEST: {
+        case ACTION.GALLERY_REQUEST: {
             return {
                 ...state,
                 isFetching: true,
                 err: null,
             };
         }
-        case ACTION.PRIEST_ERROR: {
+        case ACTION.GALLERY_ERROR: {
             return {
                 ...state,
                 isFetching: false,

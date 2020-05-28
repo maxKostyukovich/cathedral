@@ -26,6 +26,7 @@ class LeftSideBar extends React.Component{
                     <ul>
                         <li><Link to={`${PATHS.ADMIN_PANEL}/news`}><span className={styles.links}>Новости</span></Link></li>
                         <li><Link to={`${PATHS.ADMIN_PANEL}/priest`}><span className={styles.links}>Священики</span></Link></li>
+                        <li><Link to={`${PATHS.ADMIN_PANEL}/gallery`}><span className={styles.links}>Галлерея</span></Link></li>
                     </ul>
                 </div>
         )

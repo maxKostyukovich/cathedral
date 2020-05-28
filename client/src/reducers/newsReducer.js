@@ -1,5 +1,4 @@
 import ACTION from '../actions/actionTypes';
-
 const initialState = {
     news: [],
     singleNews: {},
@@ -7,8 +6,6 @@ const initialState = {
     isFetching: false,
     err: null,
 };
-
-
 export default function (state = initialState, action) {
     switch (action.type) {
         case ACTION.GET_ALL_NEWS_RESPONSE: {

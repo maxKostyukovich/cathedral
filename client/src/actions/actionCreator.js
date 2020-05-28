@@ -1,23 +1,23 @@
 import ACTION from './actionTypes';
 
+export const createNewsAction = (formData) => ({
+    type: ACTION.CREATE_NEWS_ACTION,
+    formData
+})
+
 export const getUserAction = () => ({
-   type: ACTION.GET_USER_ACTION
+    type: ACTION.GET_USER_ACTION
 });
 
 export const getAllNewsAction = (params) => ({
-   type: ACTION.GET_ALL_NEWS_ACTION,
-   params
+    type: ACTION.GET_ALL_NEWS_ACTION,
+    params
 });
 
 export const getSingleNewsAction = (id) => ({
-   type: ACTION.GET_SINGLE_NEWS_ACTION,
-   id
+    type: ACTION.GET_SINGLE_NEWS_ACTION,
+    id
 });
-
-export const createNewsAction = (formData) => ({
-   type: ACTION.CREATE_NEWS_ACTION,
-   formData
-})
 
 export const deleteNewsAction = (id) => ({
    type: ACTION.DELETE_NEWS_ACTION,
@@ -82,4 +82,40 @@ export const changeStatusModalFormAction = (isActive, status) => ({
 
 export const logoutAction = () => ({
    type: ACTION.LOGOUT_ACTION
+});
+
+export const initializeGalleryAction = (id) => ({
+    type: ACTION.INITIALIZE_GALLERY_ACTION,
+    id
+})
+
+export const updateGalleryAction = (id, gallery) => ({
+    type: ACTION.UPDATE_GALLERY_ACTION,
+    id,
+    gallery
+})
+
+export const getAllGalleryAction = () => ({
+    type: ACTION.GET_ALL_GALLERY_ACTION
+})
+
+export const getSingleGalleryAction = (id) => ({
+    type: ACTION.GET_SINGLE_GALLERY_ACTION,
+    id
+})
+
+export const createGalleryAction = (formData) => ({
+    type: ACTION.CREATE_GALLERY_ACTION,
+    formData
+})
+
+export const deleteGalleryAction = (id) => ({
+    type: ACTION.DELETE_GALLERY_ACTION,
+    id
+});
+
+export const initializeGalleryModalWindow = (image, title) => ({
+   type: ACTION.INITIALIZE_GALLERY_MODAL_ACTION,
+    image,
+    title
 });

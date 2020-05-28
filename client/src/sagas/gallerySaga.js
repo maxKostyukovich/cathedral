@@ -8,119 +8,115 @@ import {
     deleteGallery
 } from "../api/restApi";
 import _ from "lodash";
-import {nl2br} from "../utils/util";
 
-export function* getAllPriestSaga() {
-    yield put({ type: ACTION.PRIEST_REQUEST });
+export function* getAllGallerySaga() {
+    yield put({ type: ACTION.GALLERY_REQUEST });
     try{
-        const { data } = yield getAllPriest();
-        yield put({type:ACTION.GET_ALL_PRIEST_RESPONSE, priests: data});
+        const { data } = yield getAllGallery();
+        yield put({type:ACTION.GET_ALL_GALLERY_RESPONSE, galleries: data});
     }catch (err) {
-        yield put({type: ACTION.PRIEST_ERROR, err: {
+        yield put({type: ACTION.GALLERY_ERROR, err: {
                 message: err.response.data,
                 status: err.response.status,
             } })
     }
 }
 
-export function* initializePriestSaga({id}) {
-    yield put({ type: ACTION.PRIEST_REQUEST });
-    try{
-        if(id) {
-            const {data} = yield getSinglePriest(id);
-            yield put({type: ACTION.INITIALIZE_PRIEST_RESPONSE, initializePriest: data});
-        }
-    }catch (err) {
-        yield put({type: ACTION.PRIEST_ERROR, err: {
-                message: err.response.data,
-                status: err.response.status,
-            } })
-    }
-}
-
-export function* getSinglePriestSaga({ id }) {
-    yield put({ type: ACTION.PRIEST_REQUEST });
+export function* initializeGallerySaga({id}) {
+    yield put({ type: ACTION.GALLERY_REQUEST });
     try{
         if(id) {
-            const {data} = yield getSinglePriest(id);
-            yield put({type: ACTION.GET_SINGLE_PRIEST_RESPONSE, singlePriest: data});
+            const {data} = yield getSingleGallery(id);
+            yield put({type: ACTION.INITIALIZE_GALLERY_RESPONSE, initializeGallery: data});
         }
     }catch (err) {
-        yield put({type: ACTION.PRIEST_ERROR, err: {
+        yield put({type: ACTION.GALLERY_ERROR, err: {
                 message: err.response.data,
                 status: err.response.status,
             } })
     }
 }
 
-export function* createPriestSaga({formData}) {
+export function* getSingleGallerySaga({ id }) {
+    yield put({ type: ACTION.GALLERY_REQUEST });
+    try{
+        if(id) {
+            const {data} = yield getSingleGallery(id);
+            yield put({type: ACTION.GET_SINGLE_GALLERY_RESPONSE, singleGallery: data});
+        }
+    }catch (err) {
+        yield put({type: ACTION.GALLERY_ERROR, err: {
+                message: err.response.data,
+                status: err.response.status,
+            } })
+    }
+}
+
+export function* createGallerySaga({formData}) {
     try{
         if(formData) {
-            const {data} = yield createPriest(formData);
+            const {data} = yield createGallery(formData);
             const state = yield select();
-            const newData = _.cloneDeep(state.priestReducer.priests);
+            const newData = _.cloneDeep(state.galleryReducer.galleries);
             newData.unshift(data);
-            yield put({type: ACTION.CREATE_PRIEST_RESPONSE, addedPriest: newData});
+            yield put({type: ACTION.CREATE_GALLERY_RESPONSE, addedGallery: newData});
         }
     } catch (err) {
-        yield put({type: ACTION.PRIEST_ERROR, err: {
+        yield put({type: ACTION.GALLERY_ERROR, err: {
                 message: err.response.data,
                 status: err.response.status,
             } })
     }
 }
 
-export function* deletePriestSaga({ id }) {
-    yield put({ type: ACTION.PRIEST_REQUEST });
+export function* deleteGallerySaga({ id }) {
+    yield put({ type: ACTION.GALLERY_REQUEST });
     try{
         if(id) {
-            yield deletePriest(id);
+            yield deleteGallery(id);
             const state = yield select();
-            const filtered = state.priestReducer.priests.filter(item => item.id !== id);
-            yield put({type: ACTION.GET_ALL_PRIEST_RESPONSE, priests: filtered});
+            const filtered = state.galleryReducer.galleries.filter(item => item.id !== id);
+            yield put({type: ACTION.GET_ALL_GALLERY_RESPONSE, galleries: filtered});
         }
     } catch (err) {
-        yield put({type: ACTION.PRIEST_ERROR, err: {
+        yield put({type: ACTION.GALLERY_ERROR, err: {
                 message: err.response.data,
                 status: err.response.status,
             } })
     }
 }
 
-export function* updatePriestSaga({ id, priest }) {
-    yield put({type: ACTION.PRIEST_REQUEST});
+export function* updateGallerySaga({ id, gallery }) {
+    yield put({type: ACTION.GALLERY_REQUEST});
     try {
         const formData = new FormData();
-        for (const key in priest) {
-            if (priest.hasOwnProperty(key)) {
-                if (key === 'biography') {
-                    priest[key] = nl2br(priest[key])
-                }
-                if (key === 'avatar'){
-                    if (typeof priest[key] === 'string') {
-                        priest.avatar = undefined;
+        for (const key in gallery) {
+            if (gallery.hasOwnProperty(key)) {
+                if (key === 'image'){
+                    if (typeof gallery[key] === 'string') {
+                        gallery.image = undefined;
                         continue;
                     }
                 }
-                formData.append(key, priest[key])
+                formData.append(key, gallery[key])
             }
         }
-        yield updatePriest(id, formData);
+        yield updateGallery(id, formData);
         const state = yield select();
         let index;
-        const allPriests = _.cloneDeep(state.priestReducer.priests);
-        const updatedElement = allPriests.find((elem, i) => {
+        const allGalleries = _.cloneDeep(state.galleryReducer.galleries);
+        const updatedElement = allGalleries.find((elem, i) => {
             if (elem.id === id) {
                 index = i;
                 return elem
             }
         });
-        allPriests[index] =  (yield getSinglePriest(id)).data;
-        yield put({type: ACTION.GET_ALL_PRIEST_RESPONSE, priests: allPriests})
+        allGalleries[index] =  (yield getSingleGallery(id)).data;
+        yield put({type: ACTION.GET_ALL_GALLERY_RESPONSE, galleries: allGalleries})
 
     } catch (err) {
         yield put({
-            type: ACTION.PRIEST_ERROR, err: {
+            type: ACTION.GALLERY_ERROR, err: {
                 message: err.response.data,
                 status: err.response.status,
             }

@@ -5,7 +5,7 @@ import {STATIC_PATH_MAIN_PHOTO_NEWS} from '../constants'
 import fs from "fs";
 const News = db.News;
 
-module.exports.createNews = async (req, res, next) => {
+module.exports.create = async (req, res, next) => {
     try {
         const news = req.body;
         news.main_img = req.file.filename;
@@ -18,7 +18,7 @@ module.exports.createNews = async (req, res, next) => {
     }
 };
 
-module.exports.getAllNews = async (req, res, next) => {
+module.exports.getAll = async (req, res, next) => {
     try {
         let limit = Number(req.query.limit);
         let news;
@@ -37,7 +37,7 @@ module.exports.getAllNews = async (req, res, next) => {
     }
 };
 
-module.exports.getNews = async (req, res, next) => {
+module.exports.get = async (req, res, next) => {
     const news = await News.findByPk(req.params.id);
     news.main_img = STATIC_PATH_MAIN_PHOTO_NEWS + news.main_img;
     if(!news){
@@ -69,7 +69,7 @@ module.exports.update = async (req, res, next) => {
     }
 };
 
-module.exports.deleteNews = async (req, res, next) => {
+module.exports.delete = async (req, res, next) => {
     try {
         const news = await News.findByPk(req.params.id);
         if(!news){

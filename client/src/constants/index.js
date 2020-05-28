@@ -6,6 +6,7 @@ export const PATHS = {
     LOGIN: '/home/login',
     GALLERY: '/home/gallery',
     MAIN_PAGE: '/home',
+    BISHOP: '/home/bishop',
     NOT_FOUND: '*'
 };
 export const STORAGE_KEYS = {

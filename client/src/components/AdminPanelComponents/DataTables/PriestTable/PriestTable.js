@@ -17,6 +17,7 @@ import {deletePriestAction, changeStatusModalFormAction, initializePriestAction}
 import ModalWindow from "../../ModalWindow/ModalWindow";
 import {MODAL_FORM_STATUS_MODE} from "../../../../constants";
 import PriestForm from "../../Forms/PriestForm/PriestForm";
+import {getImageName} from "../../../../utils/util";
 
 const useStyles = makeStyles({
     table: {
@@ -72,7 +73,7 @@ function PriestTable(props) {
                     <TableHead style={{backgroundColor: 'black', color: 'white'}}>
                         <TableRow>
                             <StyledTableCell align={'center'}>id</StyledTableCell>
-                            <StyledTableCell align="center">ФИО</StyledTableCell>
+                            <StyledTableCell align="left">ФИО</StyledTableCell>
                             <StyledTableCell>Должность</StyledTableCell>
                             <StyledTableCell align="center">Аватар</StyledTableCell>
                             <StyledTableCell align="center">
@@ -89,10 +90,10 @@ function PriestTable(props) {
                                 <StyledTableCell align="center" component="th" scope="row">
                                     {row.id}
                                 </StyledTableCell>
-                                <StyledTableCell align="center">{row.full_name}</StyledTableCell>
+                                <StyledTableCell align="left">{row.full_name}</StyledTableCell>
                                 <StyledTableCell>{row.current_position}</StyledTableCell>
                                 <StyledTableCell align="center">
-                                    <a href={SERVER_URL + row.avatar}>{row.avatar.split('/')[3]}</a>
+                                    <a href={SERVER_URL + row.avatar}>{getImageName(row.avatar)}</a>
                                 </StyledTableCell>
                                 <StyledTableCell align="center" className={styles.editCell}>
                                     <div className={styles.icon} onClick={openEditModalWindow(row.id)}>

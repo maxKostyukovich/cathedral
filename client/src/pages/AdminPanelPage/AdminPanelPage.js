@@ -4,12 +4,12 @@ import LeftSideBar from '../../components/AdminPanelComponents/SideBar/LeftSideB
 import {Route} from "react-router";
 import Home from "../../components/AdminPanelComponents/Home/Home";
 import {PATHS} from "../../constants";
-import {getAllNewsAction, getAllPriestsAction, logoutAction} from "../../actions/actionCreator";
+import {getAllNewsAction, getAllPriestsAction, logoutAction, getAllGalleryAction} from "../../actions/actionCreator";
 import connect from 'react-redux/es/connect/connect'
 import NewsTable from "../../components/AdminPanelComponents/DataTables/NewsTable/NewsTable";
 import PriestTable from "../../components/AdminPanelComponents/DataTables/PriestTable/PriestTable";
+import GalleryTable from '../../components/AdminPanelComponents/DataTables/GalleryTable/GalleryTable'
 import TablePage from './TablePage/TablePage';
-import {newsTableText, priestTableText} from "./textConstants";
 import exit from '../../images/exit.png'
 import { Link } from "react-router-dom";
 
@@ -23,6 +23,7 @@ class AdminPanelPage extends React.Component {
 
     componentDidMount() {
         this.props.getAllPriestsAction();
+        this.props.getAllGalleryAction();
         this.props.getAllNewsAction();
     }
 
@@ -50,8 +51,9 @@ class AdminPanelPage extends React.Component {
                 </div>
                 <div className={styles.container}>
                     <Route exact path={PATHS.ADMIN_PANEL} component={Home}/>
-                    <Route path={PATHS.ADMIN_PANEL + '/news'} render={(props) => <TablePage {...props} text={newsTableText} table={NewsTable} data = {this.props.news}/>}/>
-                    <Route path={PATHS.ADMIN_PANEL + '/priest'} render={(props) => <TablePage {...props} text={priestTableText} table={PriestTable} data = {this.props.priests} />}/>
+                    <Route path={PATHS.ADMIN_PANEL + '/news'} render={(props) => <TablePage {...props}  table={NewsTable} data = {this.props.news}/>}/>
+                    <Route path={PATHS.ADMIN_PANEL + '/priest'} render={(props) => <TablePage {...props}  table={PriestTable} data = {this.props.priests} />}/>
+                    <Route path={PATHS.ADMIN_PANEL + '/gallery'} render={(props) => <TablePage {...props}  table={GalleryTable} data = {this.props.galleries} />}/>
                 </div>
             </div>
         )
@@ -60,15 +62,18 @@ class AdminPanelPage extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
     getAllNewsAction: (params) => dispatch(getAllNewsAction(params)),
     getAllPriestsAction: () => dispatch(getAllPriestsAction()),
+    getAllGalleryAction: () => dispatch(getAllGalleryAction()),
     logoutAction: () => dispatch(logoutAction())
 });
 
 const mapStateToProps = (state) => {
     const { news } = state.newsReducer;
     const { priests } = state.priestReducer;
+    const { galleries } = state.galleryReducer;
     return {
         news,
-        priests
+        priests,
+        galleries
     }
 };
 

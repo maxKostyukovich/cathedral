@@ -3,20 +3,16 @@ import {PATHS} from "../../constants";
 export const NavLinks = [
     {
       text: 'Новости',
-      to: '/news',
+      to: '/',
       dropList:[]
     },
     {
         text: 'Архипастырь',
-        to: '/',
+        to: '/home/bishop',
         dropList: [
             {
                 text: 'Биография',
-                to: '/'
-            },
-            {
-                text: 'Проповеди',
-                to: '/'
+                to: '/home/bishop'
             }
         ]
     },
@@ -27,21 +23,8 @@ export const NavLinks = [
             {
                 text: 'Духовенство',
                 to: PATHS.CHURCH_PRIESTS
-            },
-            {
-                text: 'Расписание служб',
-                to: '/'
-            },
-            {
-                text: 'Психологический кабинет',
-                to: '/'
             }
         ]
-    },
-    {
-        text: `Воскресная школа 'Андреевцы'`,
-        to: '/',
-        dropList: []
     },
     {
         text: 'Галерея',

@@ -16,7 +16,7 @@ class LoginForm extends React.Component {
         return(
 
             <form className={styles.container}>
-                <h2 className={styles.title}>Форма входа в Админ Панель</h2>
+                <h2 className={styles.title}>Форма входа в Панель Администратора</h2>
                 <div className={styles.formContainer}>
                     <Field name={'email'} component={TextInput} type={'text'} label={'Email'}/>
                     <Field name={'password'} component={TextInput} type={'password'} label={'Пароль'}/>

@@ -21,11 +21,13 @@ router.post(ROUTES.USER, hashPassMiddleware, userController.createUser);
 router.post(ROUTES.LOGIN, validation(loginUserValidationScheme), userController.loginUser);
 router.get(ROUTES.USER, accessTokenVerify, userController.getUser);
 
-router.get(ROUTES.NEWS_ID, newsController.getNews);
-router.get(ROUTES.NEWS, newsController.getAllNews);
-router.post(ROUTES.NEWS, accessTokenVerify, uploadMainNewsImage.single('main_img'), validation(createNewsValidationScheme.create), newsController.createNews);
-router.put(ROUTES.NEWS_ID, accessTokenVerify, uploadMainNewsImage.single('main_img'), validation(createNewsValidationScheme.update), newsController.update);
-router.delete(ROUTES.NEWS_ID, accessTokenVerify, newsController.deleteNews);
+router.get(ROUTES.NEWS_ID, newsController.get);
+router.get(ROUTES.NEWS, newsController.getAll);
+router.post(ROUTES.NEWS, accessTokenVerify, uploadMainNewsImage.single('main_img'),
+    validation(createNewsValidationScheme.create), newsController.create);
+router.put(ROUTES.NEWS_ID, accessTokenVerify, uploadMainNewsImage.single('main_img'),
+    validation(createNewsValidationScheme.update), newsController.update);
+router.delete(ROUTES.NEWS_ID, accessTokenVerify, newsController.delete);
 
 router.get(ROUTES.PRIEST, priestController.getAll);
 router.get(ROUTES.PRIEST_ID, priestController.get);
@@ -38,7 +40,6 @@ router.get(ROUTES.GALLERY_ID, galleryController.get);
 router.post(ROUTES.GALLERY, accessTokenVerify, uploadGalleryImage.single('image'), galleryController.create);
 router.put(ROUTES.GALLERY_ID, accessTokenVerify, uploadGalleryImage.single('image'), galleryController.update);
 router.delete(ROUTES.GALLERY_ID, accessTokenVerify, galleryController.delete);
-
 
 router.post('/refresh', refreshTokenVerify, userController.refreshToken);
 

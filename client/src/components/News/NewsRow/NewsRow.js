@@ -4,6 +4,8 @@ import { SERVER_URL } from "../../../api/ConstantURLs";
 import { Link } from 'react-router-dom'
 import {PATHS} from "../../../constants";
 import arrows from '../../../images/chevron-double-right.png'
+import {cutText} from "../../../utils/util";
+
 class NewsRow extends React.Component{
     render(){
         return(
@@ -17,7 +19,7 @@ class NewsRow extends React.Component{
                             <span className={styles.date}>{this.props.date}</span>
                         </div>
                         <article className={styles.description}>
-                            {this.props.short_description}
+                            {cutText(this.props.short_description, 200)}
                         </article>
                         <span className={styles.more}>Подробнее<img src={arrows} alt={arrows}/></span>
                     </div>

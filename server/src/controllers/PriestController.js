@@ -19,7 +19,7 @@ module.exports.create = async (req, res, next) => {
 
 module.exports.getAll = async (req, res, next) => {
     try {
-        const priests = await Priest.findAll({attributes: { exclude: ['biography', 'createdAt', 'updatedAt'] }});
+        const priests = await Priest.findAll({attributes: { exclude: ['createdAt', 'updatedAt'] }});
         priests.forEach((item) => {
             item.avatar =  STATIC_PATH_AVATAR_PRIEST + item.avatar;
         });

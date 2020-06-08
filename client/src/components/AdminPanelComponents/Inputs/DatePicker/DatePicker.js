@@ -15,7 +15,6 @@ export default function ({ input: { onChange, value }, showTime, label }) {
                 onChange={onChange}
                 format="YYYY-MM-DD"
                 time={showTime}
-               // value={!value ? null : new Date(value)}
             />
         </div>
     )

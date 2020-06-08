@@ -56,6 +56,4 @@ const mapStateToProps = (state) => {
         err,
     }
 };
-
-
 export default connect(mapStateToProps,mapDispatchToProps)(MainPage);

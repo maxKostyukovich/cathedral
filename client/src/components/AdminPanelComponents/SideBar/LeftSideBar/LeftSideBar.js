@@ -31,6 +31,5 @@ class LeftSideBar extends React.Component{
                 </div>
         )
     }
-
 }
 export default LeftSideBar

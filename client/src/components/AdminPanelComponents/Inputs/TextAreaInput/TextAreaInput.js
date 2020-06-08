@@ -10,7 +10,6 @@ class TextAreaInput extends React.Component{
                 </div>
         )
     }
-
 }
 
 export default TextAreaInput;

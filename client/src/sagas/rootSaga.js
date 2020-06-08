@@ -50,9 +50,6 @@ function* rootSaga() {
 
     yield takeLatest(ACTION.GET_USER_ACTION, getUserSaga);
     yield takeLatest(ACTION.LOGOUT_ACTION, logoutSaga);
-
-
-
 }
 
 export default rootSaga;

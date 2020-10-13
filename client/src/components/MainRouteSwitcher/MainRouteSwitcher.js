@@ -3,7 +3,7 @@ import { Route, Link, Switch } from "react-router-dom";
 import {PATHS} from "../../constants";
 import MainPage from "../../pages/MainPage/MainPage";
 import LoginForm from "../Forms/LoginForm/LoginForm";
-import Priests from '../Priests/Priests'
+import Priests from '../Church/Priests/Priests'
 import Gallery from "../Gallery/Gallery";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 import Header from "../Header/Header";

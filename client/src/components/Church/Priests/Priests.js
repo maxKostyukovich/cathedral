@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './Priests.module.sass'
-import {getAllPriestsAction} from "../../actions/actionCreator";
+import {getAllPriestsAction} from "../../../actions/actionCreator";
 import connect from 'react-redux/es/connect/connect'
-import PriestRow from "../News/PriestRow/PriestRow";
-import separator from '../../images/separator.svg'
+import PriestRow from "../../News/PriestRow/PriestRow";
+import separator from '../../../images/separator.svg'
 
 class Priests extends React.Component{
     componentDidMount(){

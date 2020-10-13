@@ -21,14 +21,27 @@ export const NavLinks = [
         to: '/',
         dropList: [
             {
+                text: 'О Соборе',
+                to: '/'
+            },
+            {
+                text: 'Богослужения',
+                to: '/'
+            },
+            {
                 text: 'Духовенство',
                 to: PATHS.CHURCH_PRIESTS
-            }
+            },
         ]
     },
     {
         text: 'Галерея',
         to: PATHS.GALLERY,
+        dropList: []
+    },
+    {
+        text: 'Заказ Треб',
+        to: '/',
         dropList: []
     }
 ];
